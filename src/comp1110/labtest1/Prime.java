@@ -3,22 +3,34 @@ package comp1110.labtest1;
 import java.util.Scanner;
 
 /**
- * Created by joshuazhao on 2/08/2016.
+ * Created by joshuazhao on 4/08/2016.
  */
 public class Prime {
     public static void main(String[] args) {
 
-        Scanner in = new Scanner(System.in);
-        int sup = in.nextInt();
+        Scanner in = new Scanner(System.in);// open a IO input.
 
-        for (int i = 2; i <= sup; i++) {
-            for (int j = 2; j <= i; j++) {
-                if (i == j) {
-                    System.out.println(i);
+        int n = in.nextInt();//declare int n.
+
+        boolean[] isPrime = new boolean[n+1];//initialize a boolean array with length of n+1.
+
+        for (int i=0; i<=n; i++) {
+            isPrime[i] = true; // assume all in range are prime.
+        }
+        isPrime[0] = false; // 1 is not prime.
+        isPrime[1] = false; // 2 is not prime.
+        
+        for (int i=2; i*i<=n; i++) {
+            if (isPrime[i]) {
+                for (int j=i*i; j<=n; j+=i) {
+                    isPrime[j] = false;
                 }
-                if (i % j == 0) {
-                    break;
-                }
+            }
+        }
+
+        for (int i = 0; i <= n; i++) {
+            if (isPrime[i]) {
+                System.out.println(i);
             }
         }
     }
